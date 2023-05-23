@@ -5,7 +5,7 @@ class BMI extends State{
 
   final _height = TextEditingController();
   final _weight = TextEditingController();
-  double _bmi = 0.0;
+  Data _bmi = Data();
 
   @override
   void dispose(){
@@ -16,8 +16,7 @@ class BMI extends State{
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
           title: const Center(
@@ -28,11 +27,7 @@ class BMI extends State{
           padding: const EdgeInsets.all(18.0),
           child: Column(
             children: [
-              Container(
-                constraints: const BoxConstraints.expand(
-                  width: 400,
-                  height: 400
-                ),
+              SizedBox(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -69,33 +64,27 @@ class BMI extends State{
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Text(_bmi.toStringAsFixed(1),
-                      textScaleFactor: 5.0,
-                      style: const TextStyle(
-                        color: Colors.red
-                      ),
+              Column(
+                children: [
+                  Text(_bmi.value.toStringAsFixed(1),
+                    textScaleFactor: 5.0,
+                    style: const TextStyle(
+                      color: Colors.red
                     ),
+                  ),
 
-                    const Text('BMI',
-                      textScaleFactor: 3.0,
-                      style: TextStyle(
-                        color: Colors.blue
-                      ),
-                    )
-                  ],
-                ),
+                  const Text('BMI',
+                    textScaleFactor: 3.0,
+                    style: TextStyle(
+                      color: Colors.blue
+                    ),
+                  )
+                ],
               )
             ],
           ),
         ),
-        resizeToAvoidBottomInset: false,
-      ),
-      debugShowCheckedModeBanner: false,
-    );
+      );
   }
 
 }
