@@ -16,7 +16,8 @@ class BMI extends State{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
           title: const Center(
@@ -25,67 +26,68 @@ class BMI extends State{
         ),
         body: Padding(
           padding: const EdgeInsets.all(18.0),
-          child: Column(
-            children: [
-              SizedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextField(
-                      decoration: const InputDecoration(
-                        hintText: "Height (in cms)"
-                      ),
-                      textAlign: TextAlign.center,
-                      cursorHeight: 22.0,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      controller: _height,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Height (in cms)',
+                    labelStyle: TextStyle(
+                      fontSize: 20
                     ),
-
-                    TextField(
-                      decoration: const InputDecoration(
-                        hintText: "Weight (in kgs)"
-                      ),
-                      textAlign: TextAlign.center,
-                      cursorHeight: 22.0,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      controller: _weight,
-                    ),
-
-                    ElevatedButton(
-                      onPressed: (){
-                        setState(()=> _bmi = Logic.compute(
-                          height: double.parse(_height.text),
-                          weight: double.parse(_weight.text)
-                        ));
-                      }, 
-                      child: const Text('Calculate')
-                    ),
-                  ],
-                ),
-              ),
-
-              Column(
-                children: [
-                  Text(_bmi.value.toStringAsFixed(1),
-                    textScaleFactor: 5.0,
-                    style: const TextStyle(
-                      color: Colors.red
-                    ),
+                    floatingLabelAlignment: FloatingLabelAlignment.start
                   ),
+                  cursorHeight: 25.0,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  controller: _height,
+                ),
 
-                  const Text('BMI',
-                    textScaleFactor: 3.0,
-                    style: TextStyle(
-                      color: Colors.blue
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Weight (in kgs)',
+                    labelStyle: TextStyle(
+                      fontSize: 20
                     ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      );
-  }
+                    floatingLabelAlignment: FloatingLabelAlignment.start
+                  ),
+                  cursorHeight: 25.0,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  controller: _weight,
+                ),
 
+                ElevatedButton(
+                  onPressed: (){
+                    setState(()=> _bmi = Logic.compute(
+                      height: double.parse(_height.text),
+                      weight: double.parse(_weight.text)
+                    ));
+                  }, 
+                  child: const Text('Calculate',
+                    textScaleFactor: 1.5,
+                  )
+                ),
+                
+                Text('${_bmi.value.toStringAsFixed(1)} BMI',
+                  textScaleFactor: 4.5,
+                  style: const TextStyle(
+                    color: Colors.red
+                  ),
+                ),
+
+                Text(_bmi.msg,
+                  textScaleFactor: 3.5,
+                  style: const TextStyle(
+                    color: Colors.blue
+                  ),
+                )
+
+              ],
+            ),
+          )
+        ),
+      )
+    );
+  }
 }
 
