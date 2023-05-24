@@ -9,6 +9,14 @@ class BMI extends State{
   final _weight = TextEditingController();
   Data _bmi = Data();
 
+  static String? _validate({String? value}){
+    var pattern = RegExp(r"^[0-9]+(.[0-9]+)*$");
+    
+    if(value == null || value.isEmpty || !pattern.hasMatch(value)) return 'Numeric Value Required'; 
+    
+    return null;
+  }
+
   @override
   void dispose(){
     _height.dispose();
@@ -41,7 +49,7 @@ class BMI extends State{
                   ),
                   floatingLabelAlignment: FloatingLabelAlignment.start
                 ),
-                validator: ((val) => Logic.validate(value: val)),
+                validator: ((val) => BMI._validate(value: val)),
                 cursorHeight: 25.0,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 controller: _height,
@@ -56,7 +64,7 @@ class BMI extends State{
                   floatingLabelAlignment: FloatingLabelAlignment.start
                   
                 ),
-                validator: ((val) => Logic.validate(value: val)),
+                validator: ((val) => BMI._validate(value: val)),
                 cursorHeight: 25.0,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 controller: _weight,

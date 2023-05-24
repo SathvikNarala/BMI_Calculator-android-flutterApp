@@ -25,12 +25,5 @@ class Logic{
 
     return Data(value: v, msg: x);
   }
-
-  static String? validate({String? value}){
-    var pattern = RegExp(r"^[0-9]+(.[0-9]+)*$");
-    
-    if(value == null || value.isEmpty || !pattern.hasMatch(value)) return 'Numeric Value Required'; 
-    
-    return null;
-  }
+  
 }
