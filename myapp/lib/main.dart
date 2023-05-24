@@ -17,5 +17,5 @@ class MyApp extends StatelessWidget{
 
 class _App extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => BMI();
+  State<StatefulWidget> createState() => AppState();
 }

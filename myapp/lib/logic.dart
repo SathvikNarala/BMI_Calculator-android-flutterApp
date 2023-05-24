@@ -1,16 +1,21 @@
-// import 'dart:core';
+class Request{
+  double height;
+  double weight;
 
-class Data{
+  Request({required this.height, required this.weight});
+}
+
+class Response{
   double value;
   String msg;
 
-  Data({this.value = 0.0, this.msg = 'UnderWeight'});
+  Response({this.value = 0.0, this.msg = 'UnderWeight'});
 }
 
 class Logic{
-  static Data compute({required double height, required double weight}){
-    height = height / 100;
-    double v = weight / (height * height);
+  static Response compute({required Request req}){
+    req.height = req.height / 100;
+    double v = req.weight / (req.height * req.height);
     String x = '';
 
     if(v <= 18.5){
@@ -23,7 +28,7 @@ class Logic{
       x = 'Obesity';
     }
 
-    return Data(value: v, msg: x);
+    return Response(value: v, msg: x);
   }
   
 }
