@@ -41,9 +41,7 @@ class BMI extends State{
                   ),
                   floatingLabelAlignment: FloatingLabelAlignment.start
                 ),
-                validator: (value) {
-                  return (value == null || value.isEmpty) ? 'Numeric Value Required' : null;
-                },
+                validator: ((val) => Logic.validate(value: val)),
                 cursorHeight: 25.0,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 controller: _height,
@@ -58,9 +56,7 @@ class BMI extends State{
                   floatingLabelAlignment: FloatingLabelAlignment.start
                   
                 ),
-                validator: (value) {
-                  return (value == null || value.isEmpty) ? 'Numeric Value Required' : null;
-                },
+                validator: ((val) => Logic.validate(value: val)),
                 cursorHeight: 25.0,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 controller: _weight,
