@@ -6,10 +6,24 @@ class Request{
 }
 
 class Response{
-  double value;
+  String value;
   String msg;
 
-  Response({this.value = 0.0, this.msg = 'UnderWeight'});
+  Response({this.value = '0.0', this.msg = 'UnderWeight'});
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Response && other.runtimeType == runtimeType) {
+      if (other.value == value && other.msg == msg) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  @override
+  int get hashCode => Object.hash(value, msg);
+  
 }
 
 class Logic{
@@ -24,11 +38,13 @@ class Logic{
       x = 'Healthy';
     } else if(v > 25 && v <= 35) {
       x = 'OverWeight';
-    } else{
+    } else if(v.isNaN){
+      x = 'Confusion';
+    }else{
       x = 'Obesity';
     }
 
-    return Response(value: v, msg: x);
+    return Response(value: v.toStringAsFixed(1), msg: x);
   }
   
 }

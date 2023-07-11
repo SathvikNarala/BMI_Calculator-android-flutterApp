@@ -11,20 +11,25 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:myapp/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Widget update test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify the initial state.
+    expect(find.byType(TextFormField), findsAtLeastNWidgets(2));
+    expect(find.text('0.0 BMI'), findsOneWidget);
+    expect(find.text('UnderWeight'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    //Filling the form.
+    await tester.enterText(find.bySemanticsLabel('Height (in cms)'), '180');
+    await tester.enterText(find.bySemanticsLabel('Weight (in kgs)'), '65');
+
+    // Tap the 'calculate' button and trigger a frame.
+    await tester.tap(find.byType(ElevatedButton));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that BMI is updated.
+    expect(find.text('20.1 BMI'), findsOneWidget);
+    expect(find.text('Healthy'), findsOneWidget);
   });
 }

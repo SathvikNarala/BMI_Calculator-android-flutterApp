@@ -17,8 +17,8 @@ class AppState extends State<App>{
   final _weight = TextEditingController();
   Response _bmi = Response();
 
-  static String? _validate({String? value}){
-    var pattern = RegExp(r"^[0-9]+(.[0-9]+)*$");
+  String? _validate({String? value}){
+    var pattern = RegExp(r"^[0-9]+(.[0-9]+)?$");
     
     if(value == null || value.isEmpty || !pattern.hasMatch(value)) return 'Numeric Value Required'; 
     
@@ -55,7 +55,7 @@ class AppState extends State<App>{
                   fontSize: 20
                 ),
               ),
-              validator: ((val) => AppState._validate(value: val)),
+              validator: ((val) => _validate(value: val)),
               cursorHeight: 25.0,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               controller: _height,
@@ -69,7 +69,7 @@ class AppState extends State<App>{
                 ),
                 
               ),
-              validator: ((val) => AppState._validate(value: val)),
+              validator: ((val) => _validate(value: val)),
               cursorHeight: 25.0,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               controller: _weight,
@@ -77,23 +77,23 @@ class AppState extends State<App>{
 
             ElevatedButton(
               onPressed: (){
-                setState((){
-                  if(_key.currentState!.validate()){
+                if(_key.currentState!.validate()){
+                  setState((){  
                     _bmi = Logic.compute(
                       req: Request(
                         height: double.parse(_height.text), 
                         weight: double.parse(_weight.text)
                       )
                     );
-                  }
-                });
+                  });
+                }
               }, 
               child: const Text('Calculate',
                 textScaleFactor: 1.5,
               )
             ),
             
-            Text('${_bmi.value.toStringAsFixed(1)} BMI',
+            Text('${_bmi.value} BMI',
               textScaleFactor: 4.5,
               style: const TextStyle(
                 color: Colors.red
